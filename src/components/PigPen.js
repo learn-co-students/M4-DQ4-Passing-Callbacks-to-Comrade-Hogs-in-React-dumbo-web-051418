@@ -20,6 +20,12 @@ export default class PigPen extends React.Component {
     this.audio = new Audio(exclaim)
   }
 
+  panickedStateChange = () => {
+    this.setState({
+      environment: 'panicked'
+    })
+  }
+
   relax = () => {
     const newState = {environment: 'docile'}
     this.setState(newState)
@@ -33,6 +39,7 @@ export default class PigPen extends React.Component {
   }
 
   generateSheeple = () => {
+    console.log("generating sheeple")
     return pigs.map((name, idx) => (
       <Pig key={idx} id={name} name={name} environment={this.state.environment} />
     ))
@@ -43,7 +50,7 @@ export default class PigPen extends React.Component {
     return(
       <div id="pig-pen">
         {sheeple}
-        <GalaxySNote7 environment={null} alterEnvironment={null} />
+        <GalaxySNote7 environment={this.state.environment} alterEnvironment={this.panickedStateChange} />
       </div>
     )
   }
