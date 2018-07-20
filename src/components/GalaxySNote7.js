@@ -7,6 +7,7 @@ import exclamation from "../assets/exclamation.png"
 export default class GalaxySNote7 extends React.Component {
   constructor(props) {
     super(props)
+    console.log(props);
     this.state = {
       panicked: false,
     }
@@ -19,9 +20,16 @@ export default class GalaxySNote7 extends React.Component {
   }
 
   throwAFit = () => {
+    this.setState({
+      panicked: true
+    })
   }
 
   relax = () => {
+    this.setState({
+      panicked: false
+    })
+
   }
 
   exclaim = () => {
@@ -32,9 +40,22 @@ export default class GalaxySNote7 extends React.Component {
 
   panic = () => (<img id="galaxy-exclamation" className="exclamation" src={exclamation} alt="" />)
 
+  clickHandler = () => {
+    if (this.state.panicked) {
+      this.throwAFit()
+      this.relax()
+      console.log('clicked when panicked');
+      this.props.alterEnvironment(this.props.environment)
+    }else{
+      this.exclaim()
+      console.log('clicked when not panicked');
+      this.props.alterEnvironment(this.props.environment)
+    }
+  }
+
   render() {
     return(
-      <div id="galaxy-s-note" onClick={this.exclaim}>
+      <div id="galaxy-s-note" onClick={this.clickHandler}>
         {(this.state.panicked) ? this.panic() : null}
       </div>
     )
